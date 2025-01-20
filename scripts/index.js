@@ -1,7 +1,8 @@
-function createTemplates(item) {
+function createCards(item) {
   const templates = document
     .querySelector("#card-template")
-    .content.cloneNode(true);
+    .content.querySelector(".places__item")
+    .cloneNode(true);
 
   const cardName = templates.querySelector(".card__title");
   const cardImage = templates.querySelector(".card__image");
@@ -9,6 +10,7 @@ function createTemplates(item) {
 
   cardName.textContent = item.name;
   cardImage.src = item.link;
+  cardImage.alt = item.name;
 
   deleteButton.addEventListener("click", function () {
     const removeItem = deleteButton.closest(".places__item");
@@ -18,10 +20,11 @@ function createTemplates(item) {
   return templates;
 }
 
+const placesList = document.querySelector(".places__list");
+
 function addTemplates(cards) {
-  const placesList = document.querySelector(".places__list");
   cards.forEach(function (item) {
-    const templates = createTemplates(item);
+    const templates = createCards(item);
 
     placesList.append(templates);
   });
