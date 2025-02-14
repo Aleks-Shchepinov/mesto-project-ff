@@ -1,3 +1,6 @@
+import './pages/index.css';
+import { initialCards } from './cards.js'
+
 function createCards(item) {
   const templates = document
     .querySelector("#card-template")
