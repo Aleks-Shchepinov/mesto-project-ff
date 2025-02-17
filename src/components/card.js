@@ -1,6 +1,4 @@
-import { popupOpen } from "./modal.js";
-
-function createCards(item) {
+function createCards(item, openImagePopup) {
   const templates = document
     .querySelector("#card-template")
     .content.querySelector(".places__item")
@@ -20,26 +18,19 @@ function createCards(item) {
     removeItem.remove();
   });
 
-  buttonLike.addEventListener("click", cardLike);
+  if (buttonLike) {
+    buttonLike.addEventListener("click", likeCard);
+  }
+
   cardImage.addEventListener("click", () => openImagePopup(item));
 
   return templates;
 }
 
-function cardLike(evt) {
+function likeCard(evt) {
+ if (evt.target && evt.target.classList.contains("card__like-button")) {
   evt.target.classList.toggle("card__like-button_is-active");
 }
-
-function openImagePopup(item) {
-  const popupImage = document.querySelector(".popup_type_image");
-  const popupImageContent = popupImage.querySelector(".popup__image");
-  const popupImageCaption = popupImage.querySelector(".popup__caption");
-
-  popupImageContent.src = item.link;
-  popupImageContent.alt = item.link;
-  popupImageCaption.textContent = item.name;
-
-  popupOpen(popupImage);
 }
 
-export { createCards, cardLike, openImagePopup };
+export { createCards, likeCard };
