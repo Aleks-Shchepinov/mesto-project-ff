@@ -4,22 +4,22 @@ function openPopup(popupElement) {
 
   const buttonClosePopup = popupElement.querySelector(".popup__close");
 
-  function handleCloseClick() {
+  function handleClickButtonClose() {
     closePopup(popupElement);
   }
   
-  function handleOverlayClick(evt) {
+  function handleClickOverlay(evt) {
     if (evt.target === popupElement) {
     closePopup(popupElement);
     }
   }
 
-  buttonClosePopup.addEventListener("click", handleCloseClick);
-  popupElement.addEventListener("click", handleOverlayClick);
-  document.addEventListener("keydown", keyEscape);
+  buttonClosePopup.addEventListener("click", handleClickButtonClose);
+  popupElement.addEventListener("click", handleClickOverlay);
+  document.addEventListener("keydown", handlekeyEscape);
 
-  popupElement._handleCloseClick = handleCloseClick;
-  popupElement._handleOverlayClick = handleOverlayClick;
+  popupElement._handleCloseClick = handleClickButtonClose;
+  popupElement._handleOverlayClick = handleClickOverlay;
 }
 
 function closePopup(popupElement) {
@@ -30,13 +30,13 @@ function closePopup(popupElement) {
 
   buttonClosePopup.removeEventListener("click",  popupElement._handleCloseClick);
   popupElement.removeEventListener("click", popupElement._handleOverlayClick);
-  document.removeEventListener("keydown", keyEscape);
+  document.removeEventListener("keydown", handlekeyEscape);
 
   delete popupElement._handleCloseClick
   delete popupElement._handleOverlayClick
 }
 
-function keyEscape(evt) {
+function handlekeyEscape(evt) {
   if (evt.key === "Escape") {
     const openedPopup = document.querySelector('.popup_is-opened');
     closePopup(openedPopup);

@@ -19,7 +19,7 @@ function createCards(item, openImagePopup) {
   });
 
   if (buttonLike) {
-    buttonLike.addEventListener("click", likeCard);
+    buttonLike.addEventListener("click", toggleLike);
   }
 
   cardImage.addEventListener("click", () => openImagePopup(item));
@@ -27,10 +27,10 @@ function createCards(item, openImagePopup) {
   return templates;
 }
 
-function likeCard(evt) {
+function toggleLike(evt) {
  if (evt.target && evt.target.classList.contains("card__like-button")) {
   evt.target.classList.toggle("card__like-button_is-active");
 }
 }
 
-export { createCards, likeCard };
+export { createCards, toggleLike };
