@@ -2,6 +2,7 @@ import "./pages/index.css";
 import { initialCards } from "./cards.js";
 import { createCards, toggleLike } from "./components/card.js";
 import { openPopup, closePopup } from "./components/modal.js";
+import { enableValidation, clearValidation } from "./components/validation.js";
 
 const placesList = document.querySelector(".places__list");
 const editProfile = document.querySelector(".popup");
@@ -22,13 +23,24 @@ const nameNewCard = formAddNewCard.querySelector(
 );
 const linkImageNewCard = formAddNewCard.querySelector(".popup__input_type_url");
 
+const validationConfig = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+};
+
+enableValidation(validationConfig);
+
 function openImagePopup(item) {
   const popupImage = document.querySelector(".popup_type_image");
   const popupImageContent = popupImage.querySelector(".popup__image");
   const popupImageCaption = popupImage.querySelector(".popup__caption");
 
   popupImageContent.src = item.link;
-  popupImageContent.alt = item.link;
+  popupImageContent.alt = item.name;
   popupImageCaption.textContent = item.name;
 
   openPopup(popupImage);
@@ -70,6 +82,8 @@ buttonEditProfile.addEventListener("click", () => {
   inputName.value = nameProfile.textContent;
   inputDescription.value = descriptionProfile.textContent;
   
+  clearValidation(formEditProfilePopup, validationConfig);
+
   openPopup(popupEditProfile);
 });
 
@@ -87,6 +101,7 @@ function submitNewCardForm(evt) {
   placesList.prepend(cardElement);
 
   formAddNewCard.reset();
+  clearValidation(formAddNewCard, validationConfig);
   closePopup(popupAddCard);
 }
 
