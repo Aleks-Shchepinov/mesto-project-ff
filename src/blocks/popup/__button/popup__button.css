@@ -26,6 +26,6 @@
   }
 }
 
-.form__submit-inactive {
+.popup__button_disabled {
   background: rgba(0, 0, 0, 0.15);
 }

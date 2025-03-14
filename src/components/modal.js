@@ -1,16 +1,16 @@
 function openPopup(popupElement) {
   popupElement.classList.add("popup_is-opened");
-  popupElement.classList.add("popup_is-animated"); 
+  popupElement.classList.add("popup_is-animated");
 
   const buttonClosePopup = popupElement.querySelector(".popup__close");
 
   function handleClickButtonClose() {
     closePopup(popupElement);
   }
-  
+
   function handleClickOverlay(evt) {
     if (evt.target === popupElement) {
-    closePopup(popupElement);
+      closePopup(popupElement);
     }
   }
 
@@ -24,21 +24,21 @@ function openPopup(popupElement) {
 
 function closePopup(popupElement) {
   popupElement.classList.remove("popup_is-opened");
-  popupElement.classList.remove("popup_is-animated"); 
+  popupElement.classList.remove("popup_is-animated");
 
   const buttonClosePopup = popupElement.querySelector(".popup__close");
 
-  buttonClosePopup.removeEventListener("click",  popupElement._handleCloseClick);
+  buttonClosePopup.removeEventListener("click", popupElement._handleCloseClick);
   popupElement.removeEventListener("click", popupElement._handleOverlayClick);
   document.removeEventListener("keydown", handlekeyEscape);
 
-  delete popupElement._handleCloseClick
-  delete popupElement._handleOverlayClick
+  delete popupElement._handleCloseClick;
+  delete popupElement._handleOverlayClick;
 }
 
 function handlekeyEscape(evt) {
   if (evt.key === "Escape") {
-    const openedPopup = document.querySelector('.popup_is-opened');
+    const openedPopup = document.querySelector(".popup_is-opened");
     closePopup(openedPopup);
   }
 }
