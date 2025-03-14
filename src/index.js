@@ -36,6 +36,7 @@ const profileAvatar = document.querySelector(".profile__image");
 const popupEditAvatar = document.querySelector(".popup_type_edit-avatar");
 const formEditAvatar = popupEditAvatar.querySelector(".popup__form");
 const inputAvatarLink = formEditAvatar.querySelector("#input_avatar-link");
+const popupImage = document.querySelector(".popup_type_image");
 
 const validationConfig = {
   formSelector: ".popup__form",
@@ -45,6 +46,21 @@ const validationConfig = {
   inputErrorClass: "popup__input_type_error",
   errorClass: "popup__error_visible",
 };
+
+const popups = document.querySelectorAll('.popup');
+popups.forEach((popup) => {
+  popup.classList.add('popup_is-animated');
+
+  const buttonClosePopup = popup.querySelector('.popup__close');
+  if (buttonClosePopup) {
+    buttonClosePopup.addEventListener('click', () => closePopup(popup));
+  }
+  popup.addEventListener('click', (evt) => {
+    if (evt.target === popup) {
+      closePopup(popup)
+    }
+  });
+});
 
 enableValidation(validationConfig);
 
@@ -66,7 +82,6 @@ Promise.all([getProfileInfo(), getCards()])
   });
 
 function openImagePopup(item) {
-  const popupImage = document.querySelector(".popup_type_image");
   const popupImageContent = popupImage.querySelector(".popup__image");
   const popupImageCaption = popupImage.querySelector(".popup__caption");
 
@@ -80,7 +95,7 @@ function openImagePopup(item) {
 // обработчик отправки формы
 function submitProfileForm(evt) {
   evt.preventDefault();
-  const popupElement = evt.target.closest(".popup");
+
   const submitButton = formEditProfilePopup.querySelector(".popup__button");
   const submitButtonText = submitButton.textContent;
 
@@ -91,7 +106,7 @@ function submitProfileForm(evt) {
       nameProfile.textContent = data.name;
       descriptionProfile.textContent = data.about;
 
-      closePopup(popupElement);
+      closePopup(popupEditProfile);
     })
     .catch((err) => {
       console.log("Ошибка при обновлении данных профиля:", err);
@@ -142,7 +157,7 @@ formEditAvatar.addEventListener("submit", (evt) => {
       closePopup(popupEditAvatar);
     })
     .catch((err) => {
-      consolele.log("Ошибка обновления аватара:", err);
+      console.log("Ошибка обновления аватара:", err);
     })
     .finally(() => {
       submitButton.textContent = submitButtonText;
@@ -155,6 +170,7 @@ function submitNewCardForm(evt) {
 
   const submitButton = formEditProfilePopup.querySelector(".popup__button");
   const submitButtonText = submitButton.textContent;
+
   submitButton.textContent = "Сохранение...";
 
   addNewCard(nameNewCard.value, linkImageNewCard.value)
