@@ -37,6 +37,8 @@ const popupEditAvatar = document.querySelector(".popup_type_edit-avatar");
 const formEditAvatar = popupEditAvatar.querySelector(".popup__form");
 const inputAvatarLink = formEditAvatar.querySelector("#input_avatar-link");
 const popupImage = document.querySelector(".popup_type_image");
+const popupImageContent = popupImage.querySelector(".popup__image");
+const popupImageCaption = popupImage.querySelector(".popup__caption");
 
 const validationConfig = {
   formSelector: ".popup__form",
@@ -82,9 +84,6 @@ Promise.all([getProfileInfo(), getCards()])
   });
 
 function openImagePopup(item) {
-  const popupImageContent = popupImage.querySelector(".popup__image");
-  const popupImageCaption = popupImage.querySelector(".popup__caption");
-
   popupImageContent.src = item.link;
   popupImageContent.alt = item.name;
   popupImageCaption.textContent = item.name;
